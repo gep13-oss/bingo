@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+  <style>
+    * {
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+    }
+
+    body, html {
+        font-size: 1.3rem;
+        line-height: 1.5em;
+        font-family: "Roboto",Helvetica,Arial,sans-serif;
+        padding: 0;
+        margin: 0;
+    }
+
+    #ball {
+      width: 100%;
+      display: flex;
+      border-radius: 100%;
+      position: relative;
+      align-items: center;
+      justify-content: center;
+      max-width: 150px!important;
+      margin: 0 auto;
+      box-shadow: inset 0.5rem 0.5rem 1.5rem 0.25rem hsla(0,0%,100%,.3), inset -0.25rem -0.25rem 1.5rem 0.5rem rgba(0,0,0,.4);
+    }
+
+    .red {
+      background: radial-gradient(circle at 20% 20%,red,#910000);
+    }
+
+    .yellow {
+        background: radial-gradient(circle at 20% 20%,#ffe52a,#f7bd00);
+    }
+
+    .yellow .content {
+        border: .15rem solid #f7bd00;
+    }
+
+    .red .content {
+        border: .15rem solid red;
+    }
+
+    .blue .content {
+        border: .15rem solid #00f;
+    }
+
+    .blue {
+        background: radial-gradient(circle at 20% 20%,#00f,#0000ad);
+    }
+
+    .content {
+        text-align: center;
+        border-radius: 100%;
+        background: #fff;
+        position: relative;
+        min-width: 1rem;
+        padding: 25%;
+        box-shadow: inset -0.5rem -0.5rem 2rem 0 rgba(0,0,0,.16), 0 0 0 0.25rem #fff;
+        background: radial-gradient(circle at 20% 20%,#fff,#efefef);
+    }
+
+    .green {
+        background: radial-gradient(circle at 20% 20%,green,#004a00);
+    }
+
+    .green .content {
+        border: .15rem solid green;
+    }
+
+    .white {
+        background: radial-gradient(circle at 20% 20%,#fff,#b6b6b6);
+    }
+
+    .white .content {
+        border: .15rem solid red;
+    }
+
+    .padding {
+        padding: 1rem;
+    }
+
+    .content span {
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        text-align: center;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: inline-flex;
+        font-weight: 700;
+        font-size: 1rem;
+        line-height: 1;
+    }
+  </style>
+<body onload="initializePage()">
+
+<h2>Alivia's Bingo</h2>
+
+<input type="text" id="txtbox">
+<button onclick="addBingoBall()">Add</button>
+<button onclick="clearBingoBalls()">Clear</button>
+
+<script>
+  var ballCounter = 0;
+
+  function initializePage() {
+    document.getElementById('txtbox').focus();
+  }
+
+  function clearBingoBalls() {
+    var table = document.getElementById('bingoTable');
+    table.deleteRow(0);
+    table.insertRow(0);
+    clearTextBox();
+  }
+
+  function clearTextBox() {
+    document.getElementById('txtbox').value = "";
+    document.getElementById('txtbox').focus();
+  }
+
+  function deleteCell(cellToDelete) {
+    console.log("Deleting cell number " + cellToDelete);
+    var row = document.getElementById('bingoTable').rows[0];
+    row.deleteCell(cellToDelete);
+  }
+
+  function insertCell(cellToInsert, textToInsert, colour) {
+      console.log("Inserting cell with " + textToInsert + " into position " + cellToInsert);
+      var row = document.getElementById('bingoTable').rows[0];
+      var x = row.insertCell(cellToInsert);
+      x.innerHTML = "<div class='padding'><div id='ball' class='" + colour + " relative notranslate' style='height: 150px; width: 150px;'><div class='content'><span>" + textToInsert + "</span></div></div></div>";
+      clearTextBox();
+  }
+
+  function addBingoBall() {
+    console.log("Ball Count: " + ballCounter);
+    ballCounter = ballCounter + 1;
+
+    var colour;
+    switch (ballCounter) {
+      case 1:
+        colour = "red";
+        break;
+      case 2:
+        colour = "yellow";
+        break;
+      case 3:
+        colour = "blue";
+        break;
+      case 4:
+        colour = "green";
+        break;
+      case 5:
+        colour = "white";
+        break;
+    }
+
+    var bingoNumber = document.getElementById('txtbox').value;
+    console.log("bingoNumber to be added " + bingoNumber);
+    var row = document.getElementById('bingoTable').rows[0];
+    var cellCount = row.cells.length;
+    console.log("Found " + cellCount + " cells.");
+
+    if(cellCount === 5) {
+      deleteCell(0);
+      insertCell(4, bingoNumber, colour)
+    } else {
+      insertCell(cellCount, bingoNumber, colour);
+    }
+
+    if (ballCounter === 5) {
+      ballCounter = 0;
+    }
+}
+</script>
+
+<table id="bingoTable">
+  <tr>
+  </tr>
+</table>
+
+</body>
+</html>
