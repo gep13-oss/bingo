@@ -7,4 +7,19 @@ can continue adding new numbers, and once you have added 5 balls, it will
 start removing the first ball that was added.  It will always show the last
 5 balls that were called.
 
-There is a button to clear all the balls that have been called so far.
+## Buttons
+
+### Add
+
+Add a new Bingo ball, using the current text in the input textbox.
+
+### Undo
+
+This will remove the last Bingo ball that was called.
+
+### Clear
+
+This will clear all of the Bingo balls that have currently been called.
+
+## Example Screenshot
+![Example](example.png)
