@@ -22,4 +22,5 @@ This will remove the last Bingo ball that was called.
 This will clear all of the Bingo balls that have currently been called.
 
 ## Example Screenshot
+
 ![Example](example.png)
