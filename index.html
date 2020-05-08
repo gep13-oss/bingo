@@ -102,10 +102,12 @@
 
 <input type="text" id="txtbox">
 <button onclick="addBingoBall()">Add</button>
+<button onclick="undoBingoBall()">Undo</button>
 <button onclick="clearBingoBalls()">Clear</button>
 
 <script>
   var ballCounter = 0;
+  var cellCount = 0;
 
   function initializePage() {
     document.getElementById('txtbox').focus();
@@ -163,7 +165,7 @@
     var bingoNumber = document.getElementById('txtbox').value;
     console.log("bingoNumber to be added " + bingoNumber);
     var row = document.getElementById('bingoTable').rows[0];
-    var cellCount = row.cells.length;
+    cellCount = row.cells.length;
     console.log("Found " + cellCount + " cells.");
 
     if(cellCount === 5) {
@@ -176,7 +178,13 @@
     if (ballCounter === 5) {
       ballCounter = 0;
     }
-}
+  }
+
+  function undoBingoBall() {
+    deleteCell(cellCount);
+    cellCount -= 1;
+    clearTextBox();
+  }
 </script>
 
 <table id="bingoTable">
