@@ -107,7 +107,6 @@
 
 <script>
   var ballCounter = 0;
-  var cellCount = 0;
 
   function initializePage() {
     document.getElementById('txtbox').focus();
@@ -118,6 +117,7 @@
     table.deleteRow(0);
     table.insertRow(0);
     clearTextBox();
+    ballCounter = 0;
   }
 
   function clearTextBox() {
@@ -142,6 +142,9 @@
   function addBingoBall() {
     console.log("Ball Count: " + ballCounter);
     ballCounter = ballCounter + 1;
+    var row = document.getElementById('bingoTable').rows[0];
+    cellCount = row.cells.length;
+    console.log("Cell Count: " + cellCount);
 
     var colour;
     switch (ballCounter) {
@@ -164,8 +167,6 @@
 
     var bingoNumber = document.getElementById('txtbox').value;
     console.log("bingoNumber to be added " + bingoNumber);
-    var row = document.getElementById('bingoTable').rows[0];
-    cellCount = row.cells.length;
     console.log("Found " + cellCount + " cells.");
 
     if(cellCount === 5) {
@@ -181,9 +182,14 @@
   }
 
   function undoBingoBall() {
-    deleteCell(cellCount);
-    cellCount -= 1;
+    var row = document.getElementById('bingoTable').rows[0];
+    cellCount = row.cells.length;
+    deleteCell(cellCount - 1);
     clearTextBox();
+
+    if (ballCounter !== 0) {
+      ballCounter -= 1;
+    }
   }
 </script>
 
