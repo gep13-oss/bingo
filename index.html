@@ -140,6 +140,14 @@
   }
 
   function addBingoBall() {
+    var bingoNumber = document.getElementById('txtbox').value;
+    if(bingoNumber) {
+      console.log("bingoNumber to be added " + bingoNumber);
+    } else {
+      console.log("No value has been entered, exiting.");
+      return;
+    }
+
     console.log("Ball Count: " + ballCounter);
     ballCounter = ballCounter + 1;
     var row = document.getElementById('bingoTable').rows[0];
@@ -165,8 +173,6 @@
         break;
     }
 
-    var bingoNumber = document.getElementById('txtbox').value;
-    console.log("bingoNumber to be added " + bingoNumber);
     console.log("Found " + cellCount + " cells.");
 
     if(cellCount === 5) {
